@@ -1,0 +1,497 @@
+/* =====================================================================
+   BLOODLINE TO BAHIA 2028 — THE ISSUE
+   Editorial / magazine layout · Luxury Afro-Brazilian heritage aesthetic
+   ===================================================================== */
+
+:root {
+  --black:   #111111;
+  --navy:    #0D1B2A;
+  --emerald: #0B3D2E;
+  --gold:    #C8A96B;
+  --gold-soft: #d8bd86;
+  --gold-deep: #9c7d44;
+  --cream:   #F5F0E6;
+  --white:   #FFFFFF;
+
+  --ink:        #1a1712;        /* near-black ink on cream */
+  --ink-soft:   rgba(26,23,18,.62);
+  --ink-deep:   #0a141f;
+  --gold-line:  rgba(200,169,107,.32);
+  --gold-line-d:rgba(200,169,107,.22);
+  --cream-dim:  rgba(245,240,230,.66);
+
+  --display: 'Playfair Display', serif;
+  --mast:    'Cinzel', serif;
+  --serif:   'Cormorant Garamond', serif;
+  --body:    'Montserrat', sans-serif;
+
+  --maxw: 1140px;
+  --ease: cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+html { scroll-behavior: smooth; scroll-padding-top: 72px; }
+body {
+  font-family: var(--body);
+  background: var(--ink-deep);
+  color: var(--ink);
+  -webkit-font-smoothing: antialiased;
+  overflow-x: hidden;
+}
+img { max-width: 100%; display: block; }
+a { color: inherit; text-decoration: none; }
+
+.wrap { width: 100%; max-width: var(--maxw); margin: 0 auto; padding: 0 28px; }
+.narrow { max-width: 740px; }
+
+/* ---------- Shared editorial type ---------- */
+.label {
+  font-family: var(--body); font-size: .7rem; font-weight: 600;
+  letter-spacing: .34em; text-transform: uppercase; color: var(--gold-deep);
+  margin-bottom: 1rem;
+}
+.label--gold { color: var(--gold); }
+
+.folio {
+  display: inline-block; font-family: var(--display); font-weight: 700;
+  font-size: .9rem; letter-spacing: .1em; color: var(--gold-deep);
+  border: 1px solid var(--gold-line); border-radius: 50%;
+  width: 38px; height: 38px; line-height: 36px; text-align: center; margin-bottom: 1.2rem;
+}
+.folio--gold { color: var(--gold); border-color: var(--gold-line); }
+
+.page__head { margin-bottom: 3rem; }
+.page__head--center { text-align: center; }
+.page__head--center .folio { margin-left: auto; margin-right: auto; display: block; }
+
+.page__title {
+  font-family: var(--display); font-weight: 800; line-height: 1.04;
+  font-size: clamp(2.2rem, 6vw, 4rem); letter-spacing: -.01em; color: var(--ink);
+}
+
+/* =====================================================================
+   PAGES (alternating "paper" rhythm)
+   ===================================================================== */
+.page { position: relative; padding: clamp(72px, 11vw, 130px) 0; }
+.page--cream  { background: var(--cream); color: var(--ink); }
+.page--dark   { background: linear-gradient(170deg, var(--navy), var(--ink-deep) 60%, var(--black)); color: var(--cream); }
+.page--emerald{ background: linear-gradient(160deg, var(--emerald), var(--ink-deep)); color: var(--cream); }
+.page--tight  { padding-top: clamp(48px, 7vw, 80px); }
+
+/* hairline rule between cream pages for a printed seam */
+.page--cream + .page--cream { border-top: 1px solid rgba(26,23,18,.1); }
+
+/* =====================================================================
+   BUTTONS
+   ===================================================================== */
+.btn {
+  display: inline-block; font-family: var(--body); font-size: .76rem; font-weight: 600;
+  letter-spacing: .18em; text-transform: uppercase; padding: 15px 30px; border-radius: 2px;
+  transition: all .45s var(--ease); cursor: pointer; border: 1px solid transparent;
+}
+.btn--gold { background: linear-gradient(135deg, var(--gold-soft), var(--gold)); color: var(--black);
+  box-shadow: 0 12px 38px -16px var(--gold); }
+.btn--gold:hover { transform: translateY(-3px); box-shadow: 0 20px 48px -16px var(--gold); }
+.btn--outline { border-color: var(--gold); color: var(--gold); }
+.btn--outline:hover { background: var(--gold); color: var(--black); transform: translateY(-3px); }
+.btn--ghost { color: var(--cream); border-color: rgba(245,240,230,.3); }
+.btn--ghost:hover { border-color: var(--cream); transform: translateY(-3px); }
+.btn--lg { padding: 18px 46px; font-size: .8rem; margin-top: 2.4rem; }
+
+/* =====================================================================
+   MASTHEAD NAV
+   ===================================================================== */
+.masthead {
+  position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+  transform: translateY(-100%); transition: transform .5s var(--ease);
+  background: rgba(13,27,42,.9); backdrop-filter: blur(14px); -webkit-backdrop-filter: blur(14px);
+  border-bottom: 1px solid var(--gold-line-d);
+}
+.masthead--show { transform: translateY(0); }
+.masthead__inner {
+  max-width: var(--maxw); margin: 0 auto; padding: 14px 28px;
+  display: flex; align-items: center; justify-content: space-between;
+}
+.masthead__title {
+  font-family: var(--mast); font-weight: 700; font-size: 1rem; letter-spacing: .12em;
+  color: var(--cream); text-transform: uppercase;
+}
+.masthead__nav { display: flex; align-items: center; gap: 26px; }
+.masthead__nav a {
+  font-size: .72rem; font-weight: 500; letter-spacing: .14em; text-transform: uppercase;
+  color: var(--cream-dim); transition: color .3s; position: relative;
+}
+.masthead__nav a:not(.masthead__cta)::after {
+  content: ''; position: absolute; left: 0; bottom: -5px; height: 1px; width: 0;
+  background: var(--gold); transition: width .4s var(--ease);
+}
+.masthead__nav a:not(.masthead__cta):hover { color: var(--cream); }
+.masthead__nav a:not(.masthead__cta):hover::after { width: 100%; }
+.masthead__cta {
+  color: var(--gold) !important; border: 1px solid var(--gold-line); padding: 9px 18px; border-radius: 2px;
+  transition: all .4s var(--ease);
+}
+.masthead__cta:hover { background: var(--gold); color: var(--black) !important; }
+
+.masthead__toggle { display: none; flex-direction: column; gap: 5px; background: none; border: none; cursor: pointer; padding: 8px; }
+.masthead__toggle span { width: 26px; height: 2px; background: var(--gold); border-radius: 2px; transition: transform .4s var(--ease), opacity .3s; }
+.masthead--open .masthead__toggle span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+.masthead--open .masthead__toggle span:nth-child(2) { opacity: 0; }
+.masthead--open .masthead__toggle span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+
+/* =====================================================================
+   COVER
+   ===================================================================== */
+.cover {
+  position: relative; min-height: 100vh; min-height: 100svh; overflow: hidden;
+  display: flex; flex-direction: column; align-items: center; text-align: center;
+  padding: 64px 24px 90px; color: var(--cream);
+  background:
+    radial-gradient(120% 70% at 50% 6%, rgba(11,61,46,.5), transparent 55%),
+    linear-gradient(165deg, var(--navy) 0%, var(--ink-deep) 48%, var(--black) 100%);
+}
+.cover__glow {
+  position: absolute; top: -12%; left: 50%; transform: translateX(-50%);
+  width: 880px; height: 880px; max-width: 130vw; pointer-events: none;
+  background: radial-gradient(circle, rgba(200,169,107,.5), transparent 62%);
+  opacity: .2; filter: blur(8px); animation: pulse 8s ease-in-out infinite;
+}
+@keyframes pulse { 0%,100%{opacity:.14} 50%{opacity:.26} }
+.cover__grain {
+  position: absolute; inset: 0; pointer-events: none; opacity: .05; mix-blend-mode: overlay;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='3'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+}
+
+.cover__topbar {
+  position: relative; z-index: 2; width: 100%; max-width: 920px;
+  display: flex; justify-content: space-between; align-items: center;
+  font-family: var(--body); font-size: .68rem; font-weight: 600; letter-spacing: .26em;
+  text-transform: uppercase; color: var(--gold); padding-bottom: 22px;
+  border-bottom: 1px solid var(--gold-line-d); margin-bottom: clamp(28px, 6vh, 60px);
+}
+
+.cover__logo { position: relative; z-index: 2; width: 78px; margin: 0 auto 1.4rem; }
+
+.cover__masthead {
+  position: relative; z-index: 2; font-family: var(--mast); font-weight: 800;
+  text-transform: uppercase; line-height: .92; letter-spacing: .02em;
+}
+.cover__masthead span { display: block; }
+.cover__masthead span:first-child {
+  font-size: clamp(3rem, 13vw, 8rem);
+  background: linear-gradient(180deg, var(--cream), #cdc6b4);
+  -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent;
+}
+.cover__masthead-sub {
+  font-size: clamp(2.4rem, 11vw, 6.6rem);
+  background: linear-gradient(180deg, var(--gold-soft), var(--gold) 60%, var(--gold-deep));
+  -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent;
+  text-shadow: 0 0 60px rgba(200,169,107,.16);
+}
+.cover__year {
+  position: relative; z-index: 2; font-family: var(--serif); font-style: italic; font-weight: 500;
+  font-size: clamp(1.1rem, 3.5vw, 1.8rem); letter-spacing: .55em; color: var(--gold);
+  margin: .5rem 0 0 .55em;
+}
+
+.cover__lines { position: relative; z-index: 2; margin-top: 1.8rem; }
+.cover__line {
+  font-size: .8rem; font-weight: 500; letter-spacing: .24em; text-transform: uppercase;
+  color: var(--cream-dim); margin-top: .5rem;
+}
+.cover__line--lead {
+  font-family: var(--serif); font-style: italic; font-size: 1.3rem; letter-spacing: .04em;
+  text-transform: none; color: var(--cream);
+}
+
+.cover__feature { position: relative; z-index: 2; margin-top: clamp(34px, 7vh, 70px); }
+.cover__kicker {
+  font-size: .68rem; font-weight: 600; letter-spacing: .34em; text-transform: uppercase;
+  color: var(--gold); margin-bottom: .8rem;
+}
+.cover__headline {
+  font-family: var(--display); font-weight: 800; font-size: clamp(2rem, 7vw, 3.4rem);
+  line-height: 1.02; color: var(--cream);
+}
+.cover__dek {
+  font-family: var(--serif); font-style: italic; font-size: clamp(1rem, 2.6vw, 1.3rem);
+  color: var(--gold-soft); margin-top: 1rem; max-width: 30ch; margin-inline: auto;
+}
+
+.cover__cta { position: relative; z-index: 2; display: flex; flex-wrap: wrap; justify-content: center; gap: 14px; margin-top: 2.6rem; }
+
+.cover__scroll {
+  position: absolute; bottom: 26px; left: 50%; transform: translateX(-50%); z-index: 2;
+  font-size: .64rem; font-weight: 600; letter-spacing: .3em; text-transform: uppercase;
+  color: var(--gold); padding-top: 26px;
+}
+.cover__scroll::before {
+  content: ''; position: absolute; top: 0; left: 50%; width: 1px; height: 16px;
+  background: linear-gradient(var(--gold), transparent); transform: translateX(-50%);
+  animation: drop 2.2s var(--ease) infinite;
+}
+@keyframes drop { 0%{opacity:0; transform:translateX(-50%) translateY(-6px)} 50%{opacity:1} 100%{opacity:0; transform:translateX(-50%) translateY(8px)} }
+
+/* =====================================================================
+   CONTENTS / TOC
+   ===================================================================== */
+.toc { list-style: none; max-width: 820px; }
+.toc li { border-top: 1px solid rgba(26,23,18,.16); }
+.toc li:last-child { border-bottom: 1px solid rgba(26,23,18,.16); }
+.toc a {
+  display: flex; align-items: baseline; gap: 18px; padding: 20px 4px;
+  transition: padding .4s var(--ease), color .3s;
+}
+.toc a:hover { padding-left: 16px; color: var(--gold-deep); }
+.toc__no {
+  font-family: var(--display); font-weight: 700; font-style: italic; color: var(--gold-deep);
+  font-size: 1.1rem; min-width: 40px;
+}
+.toc__name { font-family: var(--display); font-weight: 500; font-size: clamp(1.1rem, 2.6vw, 1.5rem); color: var(--ink); }
+.toc__dots { flex: 1; border-bottom: 1px dotted rgba(26,23,18,.35); transform: translateY(-4px); }
+.toc__pg {
+  font-family: var(--body); font-size: .68rem; font-weight: 600; letter-spacing: .2em;
+  text-transform: uppercase; color: var(--ink-soft); white-space: nowrap;
+}
+
+/* =====================================================================
+   EDITORIAL BODY + DROP CAP
+   ===================================================================== */
+.editorial { max-width: 64ch; }
+.dropcap {
+  font-family: var(--serif); font-size: clamp(1.35rem, 2.8vw, 1.7rem); line-height: 1.62;
+  color: var(--ink);
+}
+.dropcap::first-letter {
+  font-family: var(--display); font-weight: 800; font-size: 4.2em; line-height: .8;
+  float: left; padding: 6px 14px 0 0; color: var(--gold-deep);
+}
+.dropcap--gold { color: var(--cream); }
+.dropcap--gold::first-letter { color: var(--gold); }
+.byline {
+  font-family: var(--body); font-size: .72rem; font-weight: 600; letter-spacing: .22em;
+  text-transform: uppercase; color: var(--ink-soft); margin-top: 2rem;
+}
+
+/* =====================================================================
+   FEATURE: THE BLOODLINE
+   ===================================================================== */
+.feature { overflow: hidden; }
+.feature__bg {
+  position: absolute; inset: 0; pointer-events: none; opacity: .1;
+  background-image:
+    linear-gradient(45deg, var(--gold-line) 1px, transparent 1px),
+    linear-gradient(-45deg, var(--gold-line) 1px, transparent 1px);
+  background-size: 48px 48px;
+  -webkit-mask-image: radial-gradient(60% 60% at 50% 40%, #000, transparent 78%);
+  mask-image: radial-gradient(60% 60% at 50% 40%, #000, transparent 78%);
+}
+.feature__title {
+  font-family: var(--display); font-weight: 800; font-size: clamp(2.4rem, 7vw, 4.6rem);
+  color: var(--cream); line-height: 1; text-align: center;
+}
+.pullquote {
+  position: relative; max-width: 18ch; margin: 3rem auto; text-align: center;
+  font-family: var(--display); font-style: italic; font-weight: 500;
+  font-size: clamp(1.5rem, 4.4vw, 2.4rem); line-height: 1.32; color: var(--gold);
+}
+.pullquote::before, .pullquote::after {
+  content: ''; display: block; width: 50px; height: 1px; margin: 1.4rem auto;
+  background: linear-gradient(90deg, transparent, var(--gold), transparent);
+}
+.feature__body { max-width: 60ch; margin: 0 auto; }
+.feature__wave { max-width: 520px; height: 56px; margin: 3rem auto 0; }
+.feature__wave svg { width: 100%; height: 100%; }
+
+/* =====================================================================
+   PHOTO ESSAY: THE ROUTE
+   ===================================================================== */
+.essay { display: flex; flex-direction: column; gap: clamp(34px, 6vw, 64px); }
+.essay__city {
+  display: grid; grid-template-columns: 1fr 1.15fr; gap: clamp(24px, 5vw, 56px); align-items: center;
+}
+.essay__city--rev .essay__plate { order: 2; }
+.essay__city--rev .essay__text { order: 1; }
+
+.essay__plate {
+  position: relative; aspect-ratio: 4 / 3; border-radius: 4px; overflow: hidden;
+  background:
+    radial-gradient(120% 90% at 30% 20%, rgba(11,61,46,.55), transparent 60%),
+    linear-gradient(150deg, var(--navy), var(--ink-deep));
+  border: 1px solid rgba(26,23,18,.18);
+  display: grid; place-items: center;
+}
+.essay__plate::after {
+  content: attr(data-numeral);
+  font-family: var(--mast); font-weight: 800; font-size: clamp(4rem, 14vw, 9rem);
+  color: transparent; -webkit-text-stroke: 1px var(--gold-line);
+  letter-spacing: .04em;
+}
+.essay__plate::before {
+  content: ''; position: absolute; inset: 14px; border: 1px solid var(--gold-line-d); border-radius: 2px;
+}
+
+.essay__no {
+  font-family: var(--body); font-size: .68rem; font-weight: 600; letter-spacing: .28em;
+  text-transform: uppercase; color: var(--gold-deep);
+}
+.essay__name {
+  font-family: var(--display); font-weight: 800; font-size: clamp(1.8rem, 5vw, 3rem);
+  color: var(--ink); margin-top: .5rem; line-height: 1.02;
+}
+.essay__chapter {
+  font-family: var(--serif); font-style: italic; font-size: clamp(1.3rem, 3.4vw, 1.7rem);
+  color: var(--gold-deep); margin-top: .2rem;
+}
+.essay__desc { color: var(--ink-soft); font-size: 1rem; margin-top: 1rem; max-width: 42ch; }
+
+/* =====================================================================
+   THE INDEX (experience)
+   ===================================================================== */
+.index-grid {
+  display: grid; grid-template-columns: repeat(2, 1fr); gap: 0;
+  border-top: 1px solid rgba(26,23,18,.16); max-width: 880px; margin: 0 auto;
+}
+.idx {
+  display: flex; align-items: baseline; gap: 16px; padding: 22px 18px;
+  border-bottom: 1px solid rgba(26,23,18,.16);
+  transition: background .4s var(--ease), padding .4s var(--ease);
+}
+.idx:nth-child(odd) { border-right: 1px solid rgba(26,23,18,.16); }
+.idx:hover { background: rgba(200,169,107,.12); padding-left: 26px; }
+.idx__no {
+  font-family: var(--display); font-weight: 700; font-style: italic; color: var(--gold-deep);
+  font-size: 1rem; min-width: 32px;
+}
+.idx__name {
+  font-family: var(--display); font-weight: 500; font-size: clamp(1.05rem, 2.4vw, 1.4rem); color: var(--ink);
+}
+
+/* =====================================================================
+   DISPATCH: CHRIS BIRTHDAY
+   ===================================================================== */
+.dispatch { text-align: center; }
+.dispatch__title {
+  font-family: var(--display); font-weight: 800; font-size: clamp(2rem, 6vw, 3.4rem);
+  color: var(--cream); line-height: 1.04;
+}
+.dispatch__text {
+  font-family: var(--serif); font-size: clamp(1.2rem, 2.8vw, 1.55rem); line-height: 1.6;
+  color: var(--cream-dim); margin-top: 1.4rem; max-width: 54ch; margin-inline: auto;
+}
+
+/* =====================================================================
+   FULL-BLEED QUOTE SPREAD: MOOD
+   ===================================================================== */
+.spread { display: grid; place-items: center; min-height: 88vh; overflow: hidden; }
+.spread__grain {
+  position: absolute; inset: 0; pointer-events: none; opacity: .045; mix-blend-mode: overlay;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='3'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+}
+.spread__lines { position: relative; z-index: 2; text-align: center; padding: 0 24px; max-width: 900px; }
+.spread__line {
+  font-family: var(--display); font-style: italic; font-weight: 400;
+  font-size: clamp(1.5rem, 5vw, 2.9rem); line-height: 1.5; color: var(--cream-dim);
+}
+.spread__line--accent {
+  font-family: var(--mast); font-style: normal; font-weight: 700; text-transform: uppercase;
+  letter-spacing: .07em; color: var(--gold); font-size: clamp(1.3rem, 4.4vw, 2.4rem); margin-top: 1.2rem;
+}
+
+/* =====================================================================
+   DEPARTURES: COUNTDOWN BOARD
+   ===================================================================== */
+.board {
+  display: flex; justify-content: center; gap: clamp(10px, 2.5vw, 26px); flex-wrap: nowrap;
+  margin-top: 3rem;
+}
+.board__unit {
+  display: flex; flex-direction: column; align-items: center; gap: 10px;
+  min-width: clamp(66px, 18vw, 130px); padding: 24px 12px; border-radius: 4px;
+  background: linear-gradient(165deg, var(--navy), var(--ink-deep)); color: var(--gold);
+  border: 1px solid rgba(26,23,18,.2); box-shadow: 0 18px 40px -28px rgba(0,0,0,.7);
+}
+.board__num {
+  font-family: var(--display); font-weight: 800; font-size: clamp(1.9rem, 7vw, 3.4rem);
+  line-height: 1; color: var(--gold); font-variant-numeric: tabular-nums;
+}
+.board__label {
+  font-family: var(--body); font-size: .62rem; font-weight: 600; letter-spacing: .24em;
+  text-transform: uppercase; color: var(--cream-dim);
+}
+.board__note {
+  text-align: center; font-family: var(--serif); font-style: italic; font-size: 1.15rem;
+  color: var(--gold-deep); margin-top: 2rem;
+}
+
+/* =====================================================================
+   THE INVITATION: RSVP
+   ===================================================================== */
+.rsvp { text-align: center; overflow: hidden; }
+.rsvp__frame { position: absolute; inset: clamp(20px, 5vw, 56px); border: 1px solid var(--gold-line-d); pointer-events: none; }
+.rsvp__title {
+  font-family: var(--display); font-weight: 800; font-size: clamp(2rem, 6vw, 3.6rem);
+  color: var(--cream); line-height: 1.04; margin-top: .4rem;
+}
+.rsvp__text {
+  font-family: var(--serif); font-size: clamp(1.2rem, 2.8vw, 1.55rem); color: var(--cream-dim);
+  margin-top: 1.4rem; max-width: 50ch; margin-inline: auto;
+}
+
+/* =====================================================================
+   COLOPHON / FOOTER
+   ===================================================================== */
+.colophon {
+  background: var(--black); color: var(--cream); text-align: center; padding: 70px 0 60px;
+  border-top: 1px solid var(--gold-line-d);
+}
+.colophon__brand { font-family: var(--mast); font-weight: 700; font-size: 1.4rem; letter-spacing: .08em; color: var(--cream); }
+.colophon__tag { font-family: var(--display); font-style: italic; font-size: 1rem; color: var(--gold); margin-top: .7rem; }
+.colophon__route { font-size: .76rem; letter-spacing: .2em; text-transform: uppercase; color: var(--cream-dim); margin-top: .8rem; }
+.colophon__rule { width: 60px; height: 1px; margin: 1.7rem auto; background: linear-gradient(90deg, transparent, var(--gold), transparent); }
+.colophon__small { font-family: var(--serif); font-style: italic; font-size: 1.05rem; color: var(--cream-dim); }
+.colophon__fine { font-size: .66rem; letter-spacing: .18em; text-transform: uppercase; color: rgba(245,240,230,.4); margin-top: 1.3rem; }
+
+/* =====================================================================
+   SCROLL REVEAL
+   ===================================================================== */
+.reveal { opacity: 0; transform: translateY(28px); transition: opacity .9s var(--ease), transform .9s var(--ease); transition-delay: var(--d, 0s); }
+.reveal.is-visible { opacity: 1; transform: none; }
+
+@media (prefers-reduced-motion: reduce) {
+  * { animation: none !important; scroll-behavior: auto; }
+  .reveal { opacity: 1; transform: none; transition: none; }
+}
+
+/* =====================================================================
+   RESPONSIVE
+   ===================================================================== */
+@media (max-width: 820px) {
+  .essay__city, .essay__city--rev { grid-template-columns: 1fr; }
+  .essay__city--rev .essay__plate { order: 0; }
+  .essay__city--rev .essay__text { order: 0; }
+  .essay__plate { max-width: 460px; }
+}
+
+@media (max-width: 720px) {
+  .masthead__nav {
+    position: fixed; inset: 0 0 0 auto; width: min(80vw, 320px); flex-direction: column;
+    align-items: flex-start; justify-content: center; gap: 26px; padding: 90px 36px;
+    background: rgba(13,27,42,.98); backdrop-filter: blur(16px); -webkit-backdrop-filter: blur(16px);
+    border-left: 1px solid var(--gold-line); transform: translateX(100%); transition: transform .5s var(--ease);
+  }
+  .masthead--open .masthead__nav { transform: translateX(0); }
+  .masthead__nav a { font-size: .9rem; }
+  .masthead__toggle { display: flex; z-index: 110; }
+
+  .index-grid { grid-template-columns: 1fr; }
+  .idx:nth-child(odd) { border-right: none; }
+
+  .board__unit { min-width: 0; flex: 1; padding: 16px 6px; }
+  .board { gap: 8px; }
+}
+
+@media (max-width: 420px) {
+  .cover__topbar { font-size: .6rem; letter-spacing: .18em; }
+  .btn { padding: 14px 22px; font-size: .72rem; }
+}
